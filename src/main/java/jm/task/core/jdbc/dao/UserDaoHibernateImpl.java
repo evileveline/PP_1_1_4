@@ -5,6 +5,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import java.util.ArrayList;
 import java.util.List;
+
 import static jm.task.core.jdbc.util.Util.getSessionFactory;
 
 public class UserDaoHibernateImpl implements UserDao {
@@ -57,9 +58,9 @@ public class UserDaoHibernateImpl implements UserDao {
             transaction.commit();
             System.out.println("User " + name + " " + lastName + " was added.");
         } catch (Exception e) {
-//            if (transaction != null) {  java.lang.IllegalStateException: org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl@14f40030 is closed
-//                transaction.rollback(); Выбрасывается, если не закомментить
-//            }
+            if (transaction != null) {
+                transaction.rollback();
+            }
             e.printStackTrace();
         }
     }
@@ -72,9 +73,9 @@ public class UserDaoHibernateImpl implements UserDao {
             transaction.commit();
             System.out.println("User with id = " + id + " was removed from the table.");
         } catch (Exception e) {
-//            if (transaction != null) { java.lang.IllegalStateException: org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl@14f40030 is closed
-//                transaction.rollback();
-//            }
+            if (transaction != null) {
+                transaction.rollback();
+            }
             e.printStackTrace();
         }
     }
@@ -84,18 +85,13 @@ public class UserDaoHibernateImpl implements UserDao {
         List<User> allUsers = new ArrayList<>();
         try (Session session = getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            allUsers = session.createQuery("from User", User.class).list();
-            transaction.commit();
+            allUsers = session.createQuery("From " + User.class.getSimpleName()).list();
             System.out.println("List of all users: ");
         } catch (Exception e) {
-//            if (transaction != null) { java.lang.IllegalStateException: org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl@14f40030 is closed
-//                transaction.rollback();
-//            }
             e.printStackTrace();
         }
         return allUsers;
     }
-
 
     @Override
     public void cleanUsersTable() {
