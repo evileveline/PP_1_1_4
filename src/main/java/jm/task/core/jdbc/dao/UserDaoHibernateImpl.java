@@ -58,7 +58,7 @@ public class UserDaoHibernateImpl implements UserDao {
             System.out.println("User " + name + " " + lastName + " was added.");
         } catch (Exception e) {
 //            if (transaction != null) {  java.lang.IllegalStateException: org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl@14f40030 is closed
-//                transaction.rollback();
+//                transaction.rollback(); Выбрасывается, если не закомментить
 //            }
             e.printStackTrace();
         }
