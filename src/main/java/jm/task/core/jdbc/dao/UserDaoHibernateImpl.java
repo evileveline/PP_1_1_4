@@ -24,7 +24,7 @@ public class UserDaoHibernateImpl implements UserDao {
             transaction = session.beginTransaction();
             session.createSQLQuery(createUsersTable).executeUpdate();
             transaction.commit();
-            System.out.println("Таблица создана.");
+            System.out.println("The table has been created.");
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
@@ -39,7 +39,7 @@ public class UserDaoHibernateImpl implements UserDao {
             transaction = session.beginTransaction();
             session.createSQLQuery(dropUsersTable).executeUpdate();
             transaction.commit();
-            System.out.println("Таблица удалена.");
+            System.out.println("Table has been deleted.");
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
@@ -55,10 +55,10 @@ public class UserDaoHibernateImpl implements UserDao {
             transaction = session.beginTransaction();
             session.save(user);
             transaction.commit();
-            System.out.println("Пользователь c именем " + name + " " + lastName + " был добавлен.");
+            System.out.println("User " + name + " " + lastName + " was added.");
         } catch (Exception e) {
-//            if (transaction != null) {  Выбрасывается java.lang.IllegalStateException: org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl@14f40030 is closed
-//                transaction.rollback(); Если не закомментить
+//            if (transaction != null) {  java.lang.IllegalStateException: org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl@14f40030 is closed
+//                transaction.rollback();
 //            }
             e.printStackTrace();
         }
@@ -70,10 +70,10 @@ public class UserDaoHibernateImpl implements UserDao {
             transaction = session.beginTransaction();
             session.delete(session.get(User.class, id));
             transaction.commit();
-            System.out.println("Пользователь с id = " + id + " удален из таблицы.");
+            System.out.println("User with id = " + id + " was removed from the table.");
         } catch (Exception e) {
-//            if (transaction != null) {  Выбрасывается java.lang.IllegalStateException: org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl@14f40030 is closed
-//                transaction.rollback(); Если не закомментить
+//            if (transaction != null) { java.lang.IllegalStateException: org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl@14f40030 is closed
+//                transaction.rollback();
 //            }
             e.printStackTrace();
         }
@@ -86,10 +86,10 @@ public class UserDaoHibernateImpl implements UserDao {
             transaction = session.beginTransaction();
             allUsers = session.createQuery("from User", User.class).list();
             transaction.commit();
-            System.out.println("Список пользователей готов: ");
+            System.out.println("List of all users: ");
         } catch (Exception e) {
-//            if (transaction != null) {  Выбрасывается java.lang.IllegalStateException: org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl@14f40030 is closed
-//                transaction.rollback(); Если не закомментить
+//            if (transaction != null) { java.lang.IllegalStateException: org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl@14f40030 is closed
+//                transaction.rollback();
 //            }
             e.printStackTrace();
         }
@@ -103,7 +103,7 @@ public class UserDaoHibernateImpl implements UserDao {
             transaction = session.beginTransaction();
             session.createSQLQuery(cleanUsersTable).executeUpdate();
             transaction.commit();
-            System.out.println("Все строки удалены.");
+            System.out.println("All lines have been removed.");
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
@@ -112,4 +112,3 @@ public class UserDaoHibernateImpl implements UserDao {
         }
     }
 }
-
